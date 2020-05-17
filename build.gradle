@@ -32,4 +32,33 @@ test {
     // dependsOn 'cleanTest'
 }
 
+// Generate antlr files.
+generateGrammarSource {
+    outputDirectory file('src/main/antlr')
+    arguments += ['-no-listener']
+    arguments += ['-package', 'antlr']
 
+    doLast {
+        mkdir('src/main/java/antlr')
+        copy {
+            from 'src/main/antlr'
+            include '*.java'
+            into 'src/main/java/antlr'
+        }
+    }
+}
+
+clean.dependsOn 'removeGeneratedAntlrCode'
+
+task removeGeneratedAntlrCode(type: Delete) {
+    description 'Removes antlr code'
+    delete fileTree('src/main/antlr').matching {
+        include '*.java'
+        include '*.interp'
+        include '*.tokens'
+    }
+    // A gen folder can be created if there is an error in the antlr task
+    delete file('src/main/gen')
+    delete file('src/main/antlr/gen')
+    delete file('src/test/gen')
+}
