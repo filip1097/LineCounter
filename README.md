@@ -3,7 +3,16 @@
 LineCounter is able to tell how many blank lines, code lines and comment lines
 an input file contains.
 
-## License
+### Functionality
+
+The tool currently supports the following languages:
+
+* Antlr     *(.g4)*
+* CUP       *(.cup)*
+* JavaCC    *(.jjt, .jj)*
+* JFlex     *(.flex)*
+
+### License
 
 See [LICENSE](LICENSE.txt).
 
