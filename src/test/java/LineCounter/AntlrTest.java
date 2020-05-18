@@ -50,4 +50,16 @@ public class AntlrTest {
       fail("IOException when reading file: " + e.getMessage());
     }
   }
+
+  @Test public void SpaceBeforeJavaDoc() {
+    File inputFile = new File(TEST_DIRECTORY, "SpaceBeforeJavaDoc.g4");
+    try {
+      AntlrLineCounterParser parser = createAntlrParser(inputFile);
+      assertEquals(2, parser.getBlankLines());
+      assertEquals(3, parser.getCommentLines());
+      assertEquals(3, parser.getCodeLines());
+    } catch (IOException e) {
+      fail("IOException when reading file: " + e.getMessage());
+    }
+  }
 }
