@@ -2,6 +2,9 @@ package LineCounter;
 
 import antlr.AntlrLineCounterLexer;
 import antlr.AntlrLineCounterParser;
+import antlr.JavaCCLineCounterLexer;
+import antlr.JavaCCLineCounterParser;
+
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -16,6 +19,16 @@ public class Util {
     AntlrLineCounterLexer scanner = new AntlrLineCounterLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(scanner);
     AntlrLineCounterParser parser = new AntlrLineCounterParser(tokens);
+    parser.file();
+    return parser;
+  }
+
+  public static JavaCCLineCounterParser createJavaCCParser(File inputFile) throws IOException {
+    Reader inputReader = new FileReader(inputFile);
+    CharStream input = CharStreams.fromReader(inputReader);
+    JavaCCLineCounterLexer scanner = new JavaCCLineCounterLexer(input);
+    CommonTokenStream tokens = new CommonTokenStream(scanner);
+    JavaCCLineCounterParser parser = new JavaCCLineCounterParser(tokens);
     parser.file();
     return parser;
   }

@@ -1,0 +1,29 @@
+options {
+  NODE_DEFAULT_VOID = true;
+  NODE_PREFIX = "";
+  MULTI = true;
+}
+PARSER_BEGIN(Parser)
+  package ast;
+  /**
+  * Javadoc comment
+  */
+  public class Parser { }
+PARSER_END(Parser)
+
+/*
+multi line comment
+
+ */
+TOKEN : {
+  < A : "a"> // comment
+}
+
+
+// comment
+Start Start() #Start: {}
+{
+  <A> (Start())* <A> <EOF>
+}
+
+/* multi line comment */
