@@ -34,7 +34,6 @@ test {
 
 jar {
   manifest.attributes 'Main-Class' : 'LineCounter.Main'
-  archiveName = 'LineCounter.jar'
 
   // This includes the dependencies in the jar (to allow independent running).
   from{
