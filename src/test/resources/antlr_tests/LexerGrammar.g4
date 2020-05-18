@@ -1,4 +1,4 @@
-lexer grammar AntlrLineCounterLexer;
+lexer grammar LexerGrammar;
 
 WS                  : [ \t\r]+ -> skip;
 

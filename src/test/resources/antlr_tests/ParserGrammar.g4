@@ -1,4 +1,4 @@
-parser grammar LineCounterParser;
+parser grammar ParserGrammar;
 
 @parser::members {
 

@@ -38,9 +38,6 @@ public int getCodeLines() {
 
 }
 
-// TODO: remove this line
-options { tokenVocab=AntlrLineCounterLexer; }
-
 file : line* finalLine;
 
 line      : { setNewLine(); } (code | comment)* NEW_LINE { incLines(); };
