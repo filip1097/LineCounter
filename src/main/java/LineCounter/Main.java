@@ -1,21 +1,23 @@
 package LineCounter;
 
+import antlr.CUPLineCounterParser;
+import antlr.JFlexLineCounterParser;
 import antlr.JavaCCLineCounterParser;
 
 import java.io.File;
 import java.io.IOException;
 
-import static LineCounter.Util.fileExtension;
-import static LineCounter.Util.createJavaCCParser;
+import static LineCounter.Util.*;
 
 public class Main {
 
   public static void countLines(String filePath) {
+    File inputFile;
     switch (fileExtension(filePath)) {
       case "jjt": // JavaCC
         /* fall through */
       case "jj": // JavaCC
-        File inputFile = new File(filePath);
+        inputFile = new File(filePath);
         try {
           JavaCCLineCounterParser p = createJavaCCParser(inputFile);
           outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
@@ -23,8 +25,26 @@ public class Main {
           e.printStackTrace();
         }
         break;
+      case "cup": // CUP
+        inputFile = new File(filePath);
+        try {
+          CUPLineCounterParser p = createCUPParser(inputFile);
+          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
+      case "flex": // JFlex
+        inputFile = new File(filePath);
+        try {
+          JFlexLineCounterParser p = createJFlexParser(inputFile);
+          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
       default:
-        /* non supported file format */
+        System.err.println("LineCounter does not support ." + fileExtension(filePath) + "-files");
     }
   }
 
