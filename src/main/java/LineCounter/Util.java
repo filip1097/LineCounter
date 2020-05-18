@@ -40,6 +40,16 @@ public class Util {
     return parser;
   }
 
+  public static JFlexLineCounterParser createJFlexParser(File inputFile) throws IOException {
+    Reader inputReader = new FileReader(inputFile);
+    CharStream input = CharStreams.fromReader(inputReader);
+    JFlexLineCounterLexer scanner = new JFlexLineCounterLexer(input);
+    CommonTokenStream tokens = new CommonTokenStream(scanner);
+    JFlexLineCounterParser parser = new JFlexLineCounterParser(tokens);
+    parser.file();
+    return parser;
+  }
+
   public static String fileExtension(String filePath) {
     String[] splitPath = filePath.split("[.]");
     if (splitPath.length != 2) {
