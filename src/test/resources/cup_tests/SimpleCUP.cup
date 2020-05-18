@@ -1,0 +1,17 @@
+import java_cup.runtime.*;
+
+// terminals
+terminal A, B;
+
+// nonterminals
+non terminal Start start_rule;
+
+start with start_rule;
+
+  /**
+   * javadoc
+   */
+
+ /* multi line comment */
+start_rule ::= A A B B // one comment
+               {: System.out.println("Hello"); :};
