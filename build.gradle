@@ -37,6 +37,9 @@ generateGrammarSource {
     outputDirectory file('src/main/antlr')
     arguments += ['-no-listener']
     arguments += ['-package', 'antlr']
+    source = fileTree(dir: 'src/main/antlr').matching {
+      include '*.g4'
+    }
 
     doLast {
         mkdir('src/main/java/antlr')
