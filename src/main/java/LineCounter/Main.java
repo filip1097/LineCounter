@@ -1,5 +1,6 @@
 package LineCounter;
 
+import antlr.AntlrLineCounterParser;
 import antlr.CUPLineCounterParser;
 import antlr.JFlexLineCounterParser;
 import antlr.JavaCCLineCounterParser;
@@ -43,6 +44,14 @@ public class Main {
           e.printStackTrace();
         }
         break;
+      case "g4": // Antlr
+        inputFile = new File(filePath);
+        try {
+          AntlrLineCounterParser p = createAntlrParser(inputFile);
+          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       default:
         System.err.println("LineCounter does not support ." + fileExtension(filePath) + "-files");
     }
