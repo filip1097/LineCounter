@@ -32,23 +32,35 @@ test {
     // dependsOn 'cleanTest'
 }
 
+jar {
+  manifest.attributes 'Main-Class' : 'LineCounter.Main'
+  archiveName = 'LineCounter.jar'
+
+  // This includes the dependencies in the jar (to allow independent running).
+  from{
+    configurations.compile.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
+}
+
 // Generate antlr files.
 generateGrammarSource {
-    outputDirectory file('src/main/antlr')
-    arguments += ['-no-listener']
-    arguments += ['-package', 'antlr']
-    source = fileTree(dir: 'src/main/antlr').matching {
-      include '*.g4'
-    }
+  outputDirectory file('src/main/antlr')
+  arguments += ['-no-listener']
+  arguments += ['-package', 'antlr']
+  source = fileTree(dir: 'src/main/antlr').matching {
+    include '*.g4'
+  }
 
-    doLast {
-        mkdir('src/main/java/antlr')
-        copy {
-            from 'src/main/antlr'
-            include '*.java'
-            into 'src/main/java/antlr'
-        }
+  doLast {
+    mkdir('src/main/java/antlr')
+    copy {
+      from 'src/main/antlr'
+      include '*.java'
+      into 'src/main/java/antlr'
     }
+  }
 }
 
 clean.dependsOn 'removeGeneratedAntlrCode'

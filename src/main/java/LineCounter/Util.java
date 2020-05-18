@@ -33,4 +33,12 @@ public class Util {
     return parser;
   }
 
+  public static String fileExtension(String filePath) {
+    String[] splitPath = filePath.split("[.]");
+    if (splitPath.length != 2) {
+      throw new RuntimeException("Input path not valid: " + filePath + " " + splitPath.length);
+    }
+    return splitPath[1];
+  }
+
 }
