@@ -5,3 +5,8 @@
 
 # Ignore Gradle build output directory
 build
+
+# Ignore antlr generated files
+src/main/antlr/*.java
+src/main/antlr/*.interp
+src/main/antlr/*.tokens
