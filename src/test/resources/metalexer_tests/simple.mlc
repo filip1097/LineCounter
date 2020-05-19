@@ -1,0 +1,25 @@
+// component name
+%component simple
+
+%import "ast.sym"
+
+// macros:
+WhiteSpace = [\ \t\f\r\n]
+
+/*
+  coming below are all the rules:
+*/
+
+%%
+// Acyclic rules
+{WhiteSpace}      {: /* ignore */ :}
+
+%: // Cyclic rules
+
+  /**
+   * random javadoc
+   */
+
+
+%: // Cleanup rules
+<<EOF>>            {: return sym(sym.EOF); :} EOF

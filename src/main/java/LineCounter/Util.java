@@ -30,6 +30,17 @@ public class Util {
     return parser;
   }
 
+  public static MetaLexerLineCounterParser createMetaLexerParser(File inputFile)
+      throws IOException {
+    Reader inputReader = new FileReader(inputFile);
+    CharStream input = CharStreams.fromReader(inputReader);
+    MetaLexerLineCounterLexer scanner = new MetaLexerLineCounterLexer(input);
+    CommonTokenStream tokens = new CommonTokenStream(scanner);
+    MetaLexerLineCounterParser parser = new MetaLexerLineCounterParser(tokens);
+    parser.file();
+    return parser;
+  }
+
   public static JavaCCLineCounterParser createJavaCCParser(File inputFile) throws IOException {
     Reader inputReader = new FileReader(inputFile);
     CharStream input = CharStreams.fromReader(inputReader);

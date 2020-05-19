@@ -1,9 +1,6 @@
 package LineCounter;
 
-import antlr.AntlrLineCounterParser;
-import antlr.CUPLineCounterParser;
-import antlr.JFlexLineCounterParser;
-import antlr.JavaCCLineCounterParser;
+import antlr.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +45,16 @@ public class Main {
         inputFile = new File(filePath);
         try {
           AntlrLineCounterParser p = createAntlrParser(inputFile);
+          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      case "mll": // MetaLexer
+        /* fall through */
+      case "mlc": // MetaLexer
+        inputFile = new File(filePath);
+        try {
+          MetaLexerLineCounterParser p = createMetaLexerParser(inputFile);
           outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
         } catch (IOException e) {
           e.printStackTrace();

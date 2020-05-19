@@ -11,6 +11,7 @@ The tool currently supports the following languages:
 * CUP       *(.cup)*
 * JavaCC    *(.jjt, .jj)*
 * JFlex     *(.flex)*
+* MetaLexer *(.mll, .mlc)*
 
 ### License
 
