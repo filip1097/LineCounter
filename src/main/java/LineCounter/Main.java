@@ -49,6 +49,7 @@ public class Main {
         } catch (IOException e) {
           e.printStackTrace();
         }
+        break;
       case "mll": // MetaLexer
         /* fall through */
       case "mlc": // MetaLexer
@@ -59,6 +60,7 @@ public class Main {
         } catch (IOException e) {
           e.printStackTrace();
         }
+        break;
       default:
         System.err.println("LineCounter does not support ." + fileExtension(filePath) + "-files");
     }
