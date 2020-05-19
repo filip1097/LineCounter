@@ -20,6 +20,16 @@ public class Util {
     return parser;
   }
 
+  public static CopperLineCounterParser createCopperParser(File inputFile) throws IOException {
+    Reader inputReader = new FileReader(inputFile);
+    CharStream input = CharStreams.fromReader(inputReader);
+    CopperLineCounterLexer scanner = new CopperLineCounterLexer(input);
+    CommonTokenStream tokens = new CommonTokenStream(scanner);
+    CopperLineCounterParser parser = new CopperLineCounterParser(tokens);
+    parser.file();
+    return parser;
+  }
+
   public static CUPLineCounterParser createCUPParser(File inputFile) throws IOException {
     Reader inputReader = new FileReader(inputFile);
     CharStream input = CharStreams.fromReader(inputReader);

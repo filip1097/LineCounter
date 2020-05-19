@@ -8,6 +8,7 @@ an input file contains.
 The tool currently supports the following languages:
 
 * Antlr     *(.g4)*
+* Copper    *(.cpr)*
 * CUP       *(.cup)*
 * JavaCC    *(.jjt, .jj)*
 * JFlex     *(.flex)*

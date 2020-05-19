@@ -1,0 +1,21 @@
+%%
+% parser Simple
+
+/* Lexer */
+%lex{
+  /* terminals */
+
+  terminal HELLO ::= /Hello/; // Hello there
+
+%lex}
+
+  /**
+  grammar
+
+  */
+%cf{
+  non terminal thing;
+
+  thing ::= HELLO {: /* do nothing */ :};
+
+%cf}

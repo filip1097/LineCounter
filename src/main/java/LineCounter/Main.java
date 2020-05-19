@@ -61,6 +61,15 @@ public class Main {
           e.printStackTrace();
         }
         break;
+      case "cpr": // Copper
+        inputFile = new File(filePath);
+        try {
+          CopperLineCounterParser p = createCopperParser(inputFile);
+          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
       default:
         System.err.println("LineCounter does not support ." + fileExtension(filePath) + "-files");
     }
