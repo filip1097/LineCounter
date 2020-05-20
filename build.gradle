@@ -29,7 +29,6 @@ sourceSets {
 test {
     testLogging.events 'passed', 'failed'
     testLogging.exceptionFormat = 'full' // Full error output for test failures.
-    // dependsOn 'cleanTest'
 }
 
 jar {
