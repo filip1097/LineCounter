@@ -38,14 +38,18 @@ test {
 jar {
   manifest.attributes 'Main-Class' : 'line_counter.Main'
 
-  // This includes the dependencies in the jar (to allow independent running).
+  // This includes antlr in jar file (to allow independent running).
   from{
     configurations.antlrRuntime.collect {
       it.isDirectory() ? it : zipTree(it)
     }
   }
 
+  // Include license in jar file
   from 'LICENSE.txt'
+
+  // Includes dependency licenses in jar
+  from 'licenses'
 }
 
 // Generate antlr files.
