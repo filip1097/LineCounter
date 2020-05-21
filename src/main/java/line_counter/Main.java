@@ -9,13 +9,18 @@ import static line_counter.Util.*;
 
 public class Main {
 
-  public static void countLines(OutputBuilder out, String filePath) {
-    File inputFile;
-    switch (fileExtension(filePath)) {
+  public static void countLines(OutputBuilder out, File inputFile) {
+    if (inputFile.isDirectory()) {
+      for (File child : inputFile.listFiles()) {
+        countLines(out, child);
+      }
+      return;
+    }
+
+    switch (fileExtension(inputFile.getPath())) {
       case "jjt": // JavaCC
         /* fall through */
       case "jj": // JavaCC
-        inputFile = new File(filePath);
         try {
           JavaCCLineCounterParser p = createJavaCCParser(inputFile);
           LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
@@ -25,7 +30,6 @@ public class Main {
         }
         break;
       case "cup": // CUP
-        inputFile = new File(filePath);
         try {
           CUPLineCounterParser p = createCUPParser(inputFile);
           LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
@@ -35,7 +39,6 @@ public class Main {
         }
         break;
       case "flex": // JFlex
-        inputFile = new File(filePath);
         try {
           JFlexLineCounterParser p = createJFlexParser(inputFile);
           LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
@@ -45,7 +48,6 @@ public class Main {
         }
         break;
       case "g4": // Antlr
-        inputFile = new File(filePath);
         try {
           AntlrLineCounterParser p = createAntlrParser(inputFile);
           LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
@@ -57,7 +59,6 @@ public class Main {
       case "mll": // MetaLexer
         /* fall through */
       case "mlc": // MetaLexer
-        inputFile = new File(filePath);
         try {
           MetaLexerLineCounterParser p = createMetaLexerParser(inputFile);
           LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
@@ -67,7 +68,6 @@ public class Main {
         }
         break;
       case "cpr": // Copper
-        inputFile = new File(filePath);
         try {
           CopperLineCounterParser p = createCopperParser(inputFile);
           LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
@@ -77,7 +77,8 @@ public class Main {
         }
         break;
       default:
-        System.err.println("LineCounter does not support ." + fileExtension(filePath) + "-files");
+        System.err.println("LineCounter does not support ."
+            + fileExtension(inputFile.getPath()) + "-files");
     }
   }
 
@@ -89,7 +90,8 @@ public class Main {
     OutputBuilder out = new OutputBuilder();
 
     for (String filePath : args) {
-      countLines(out, filePath);
+      File inputFile = new File(filePath);
+      countLines(out, inputFile);
     }
 
     out.printTable();
