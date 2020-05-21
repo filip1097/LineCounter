@@ -14,6 +14,11 @@ The tool currently supports the following languages:
 * JFlex     *(.flex)*
 * MetaLexer *(.mll, .mlc)*
 
+### Dependencies
+
+LineCounter uses Antlr4 for scanning and parsing the input file(s). 
+See [Antlr4's license](licenses/antlr_license.txt).
+
 ### License
 
 See [LICENSE](LICENSE.txt).
