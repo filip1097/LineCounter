@@ -1,4 +1,4 @@
-package LineCounter;
+package line_counter;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import antlr.AntlrLineCounterParser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import static LineCounter.Util.createAntlrParser;
+import static line_counter.Util.createAntlrParser;
 
 public class AntlrTest {
   private static final File TEST_DIRECTORY = new File("src/test/resources/antlr_tests");

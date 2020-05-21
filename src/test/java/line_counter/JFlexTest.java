@@ -1,4 +1,4 @@
-package LineCounter;
+package line_counter;
 
 import antlr.AntlrLineCounterParser;
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static LineCounter.Util.createAntlrParser;
+import static line_counter.Util.createAntlrParser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

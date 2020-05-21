@@ -1,4 +1,4 @@
-package LineCounter;
+package line_counter;
 
 import antlr.*;
 

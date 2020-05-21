@@ -1,11 +1,11 @@
-package LineCounter;
+package line_counter;
 
 import antlr.*;
 
 import java.io.File;
 import java.io.IOException;
 
-import static LineCounter.Util.*;
+import static line_counter.Util.*;
 
 public class Main {
 

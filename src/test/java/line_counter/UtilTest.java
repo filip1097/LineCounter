@@ -1,10 +1,10 @@
-package LineCounter;
+package line_counter;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-import static LineCounter.Util.fileExtension;
+import static line_counter.Util.fileExtension;
 
 public class UtilTest {
 
