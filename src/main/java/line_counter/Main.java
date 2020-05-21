@@ -1,6 +1,6 @@
 package line_counter;
 
-import antlr.*;
+import parser.*;
 
 import java.io.File;
 import java.io.IOException;

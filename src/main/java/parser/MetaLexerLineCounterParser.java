@@ -1,5 +1,5 @@
-// Generated from LineCounterParser.g4 by ANTLR 4.8
-package antlr;
+// Generated from MetaLexerLineCounterParser.g4 by ANTLR 4.8
+package parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,14 +10,14 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class LineCounterParser extends Parser {
+public class MetaLexerLineCounterParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NEW_LINE=1, CODE_TEXT=2, COMMENT=3;
+		WS=1, NEW_LINE=2, COMMENT=3, CODE_TEXT=4, COMMENT_WS=5, COMMENT_END=6;
 	public static final int
 		RULE_file = 0, RULE_line = 1, RULE_finalLine = 2, RULE_code = 3, RULE_comment = 4;
 	private static String[] makeRuleNames() {
@@ -29,12 +29,13 @@ public class LineCounterParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
+			null, null, null, null, null, null, "'*/'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NEW_LINE", "CODE_TEXT", "COMMENT"
+			null, "WS", "NEW_LINE", "COMMENT", "CODE_TEXT", "COMMENT_WS", "COMMENT_END"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -72,7 +73,7 @@ public class LineCounterParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "LineCounterParser.g4"; }
+	public String getGrammarFileName() { return "MetaLexerLineCounterParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -120,7 +121,7 @@ public class LineCounterParser extends Parser {
 	}
 
 
-	public LineCounterParser(TokenStream input) {
+	public MetaLexerLineCounterParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -180,7 +181,7 @@ public class LineCounterParser extends Parser {
 	}
 
 	public static class LineContext extends ParserRuleContext {
-		public TerminalNode NEW_LINE() { return getToken(LineCounterParser.NEW_LINE, 0); }
+		public TerminalNode NEW_LINE() { return getToken(MetaLexerLineCounterParser.NEW_LINE, 0); }
 		public List<CodeContext> code() {
 			return getRuleContexts(CodeContext.class);
 		}
@@ -210,7 +211,7 @@ public class LineCounterParser extends Parser {
 			setState(23);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CODE_TEXT || _la==COMMENT) {
+			while (_la==COMMENT || _la==CODE_TEXT) {
 				{
 				setState(21);
 				_errHandler.sync(this);
@@ -252,7 +253,7 @@ public class LineCounterParser extends Parser {
 	}
 
 	public static class FinalLineContext extends ParserRuleContext {
-		public TerminalNode EOF() { return getToken(LineCounterParser.EOF, 0); }
+		public TerminalNode EOF() { return getToken(MetaLexerLineCounterParser.EOF, 0); }
 		public List<CodeContext> code() {
 			return getRuleContexts(CodeContext.class);
 		}
@@ -282,7 +283,7 @@ public class LineCounterParser extends Parser {
 			setState(34);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==CODE_TEXT || _la==COMMENT) {
+			while (_la==COMMENT || _la==CODE_TEXT) {
 				{
 				setState(32);
 				_errHandler.sync(this);
@@ -324,7 +325,7 @@ public class LineCounterParser extends Parser {
 	}
 
 	public static class CodeContext extends ParserRuleContext {
-		public TerminalNode CODE_TEXT() { return getToken(LineCounterParser.CODE_TEXT, 0); }
+		public TerminalNode CODE_TEXT() { return getToken(MetaLexerLineCounterParser.CODE_TEXT, 0); }
 		public CodeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -354,7 +355,7 @@ public class LineCounterParser extends Parser {
 	}
 
 	public static class CommentContext extends ParserRuleContext {
-		public TerminalNode COMMENT() { return getToken(LineCounterParser.COMMENT, 0); }
+		public TerminalNode COMMENT() { return getToken(MetaLexerLineCounterParser.COMMENT, 0); }
 		public CommentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -384,7 +385,7 @@ public class LineCounterParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\5\61\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b\61\4\2\t\2\4\3"+
 		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\2\3\2\3"+
 		"\3\3\3\3\3\7\3\30\n\3\f\3\16\3\33\13\3\3\3\3\3\3\3\3\4\3\4\3\4\7\4#\n"+
 		"\4\f\4\16\4&\13\4\3\4\3\4\3\4\3\5\3\5\3\5\3\6\3\6\3\6\3\6\2\2\7\2\4\6"+
@@ -392,10 +393,10 @@ public class LineCounterParser extends Parser {
 		"\2\2\f\16\5\4\3\2\r\f\3\2\2\2\16\21\3\2\2\2\17\r\3\2\2\2\17\20\3\2\2\2"+
 		"\20\22\3\2\2\2\21\17\3\2\2\2\22\23\5\6\4\2\23\3\3\2\2\2\24\31\b\3\1\2"+
 		"\25\30\5\b\5\2\26\30\5\n\6\2\27\25\3\2\2\2\27\26\3\2\2\2\30\33\3\2\2\2"+
-		"\31\27\3\2\2\2\31\32\3\2\2\2\32\34\3\2\2\2\33\31\3\2\2\2\34\35\7\3\2\2"+
+		"\31\27\3\2\2\2\31\32\3\2\2\2\32\34\3\2\2\2\33\31\3\2\2\2\34\35\7\4\2\2"+
 		"\35\36\b\3\1\2\36\5\3\2\2\2\37$\b\4\1\2 #\5\b\5\2!#\5\n\6\2\" \3\2\2\2"+
 		"\"!\3\2\2\2#&\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%\'\3\2\2\2&$\3\2\2\2\'(\7\2"+
-		"\2\3()\b\4\1\2)\7\3\2\2\2*+\7\4\2\2+,\b\5\1\2,\t\3\2\2\2-.\7\5\2\2./\b"+
+		"\2\3()\b\4\1\2)\7\3\2\2\2*+\7\6\2\2+,\b\5\1\2,\t\3\2\2\2-.\7\5\2\2./\b"+
 		"\6\1\2/\13\3\2\2\2\7\17\27\31\"$";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

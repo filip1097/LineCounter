@@ -1,5 +1,5 @@
-// Generated from JavaCCLineCounterParser.g4 by ANTLR 4.8
-package antlr;
+// Generated from JFlexLineCounterParser.g4 by ANTLR 4.8
+package parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class JavaCCLineCounterParser extends Parser {
+public class JFlexLineCounterParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -73,7 +73,7 @@ public class JavaCCLineCounterParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "JavaCCLineCounterParser.g4"; }
+	public String getGrammarFileName() { return "JFlexLineCounterParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -121,7 +121,7 @@ public class JavaCCLineCounterParser extends Parser {
 	}
 
 
-	public JavaCCLineCounterParser(TokenStream input) {
+	public JFlexLineCounterParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -181,7 +181,7 @@ public class JavaCCLineCounterParser extends Parser {
 	}
 
 	public static class LineContext extends ParserRuleContext {
-		public TerminalNode NEW_LINE() { return getToken(JavaCCLineCounterParser.NEW_LINE, 0); }
+		public TerminalNode NEW_LINE() { return getToken(JFlexLineCounterParser.NEW_LINE, 0); }
 		public List<CodeContext> code() {
 			return getRuleContexts(CodeContext.class);
 		}
@@ -253,7 +253,7 @@ public class JavaCCLineCounterParser extends Parser {
 	}
 
 	public static class FinalLineContext extends ParserRuleContext {
-		public TerminalNode EOF() { return getToken(JavaCCLineCounterParser.EOF, 0); }
+		public TerminalNode EOF() { return getToken(JFlexLineCounterParser.EOF, 0); }
 		public List<CodeContext> code() {
 			return getRuleContexts(CodeContext.class);
 		}
@@ -325,7 +325,7 @@ public class JavaCCLineCounterParser extends Parser {
 	}
 
 	public static class CodeContext extends ParserRuleContext {
-		public TerminalNode CODE_TEXT() { return getToken(JavaCCLineCounterParser.CODE_TEXT, 0); }
+		public TerminalNode CODE_TEXT() { return getToken(JFlexLineCounterParser.CODE_TEXT, 0); }
 		public CodeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -355,7 +355,7 @@ public class JavaCCLineCounterParser extends Parser {
 	}
 
 	public static class CommentContext extends ParserRuleContext {
-		public TerminalNode COMMENT() { return getToken(JavaCCLineCounterParser.COMMENT, 0); }
+		public TerminalNode COMMENT() { return getToken(JFlexLineCounterParser.COMMENT, 0); }
 		public CommentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}

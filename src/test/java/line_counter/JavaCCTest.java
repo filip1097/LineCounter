@@ -1,6 +1,6 @@
 package line_counter;
 
-import antlr.JavaCCLineCounterParser;
+import parser.JavaCCLineCounterParser;
 import org.junit.Test;
 
 import java.io.File;

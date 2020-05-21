@@ -1,6 +1,6 @@
 package line_counter;
 
-import antlr.MetaLexerLineCounterParser;
+import parser.MetaLexerLineCounterParser;
 import org.junit.Test;
 
 import java.io.File;

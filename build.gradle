@@ -56,17 +56,17 @@ jar {
 generateGrammarSource {
   outputDirectory file('src/main/antlr')
   arguments += ['-no-listener']
-  arguments += ['-package', 'antlr']
+  arguments += ['-package', 'parser']
   source = fileTree(dir: 'src/main/antlr').matching {
     include '*.g4'
   }
 
   doLast {
-    mkdir('src/main/java/antlr')
+    mkdir('src/main/java/parser')
     copy {
       from 'src/main/antlr'
       include '*.java'
-      into 'src/main/java/antlr'
+      into 'src/main/java/parser'
     }
   }
 }

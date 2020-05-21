@@ -1,6 +1,6 @@
 package line_counter;
 
-import antlr.*;
+import parser.*;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
