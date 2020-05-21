@@ -79,4 +79,17 @@ public class Util {
     return splitPath[1];
   }
 
+  /**
+   * Calculates the number of digits of {@code num}.
+   * @param num
+   * @return
+   */
+  public static int nDigits(int num) {
+    if (num == 0) {
+      return 0;
+    } else {
+      return 1 + nDigits(num / 10);
+    }
+  }
+
 }

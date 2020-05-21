@@ -9,7 +9,7 @@ import static line_counter.Util.*;
 
 public class Main {
 
-  public static void countLines(String filePath) {
+  public static void countLines(OutputBuilder out, String filePath) {
     File inputFile;
     switch (fileExtension(filePath)) {
       case "jjt": // JavaCC
@@ -18,7 +18,8 @@ public class Main {
         inputFile = new File(filePath);
         try {
           JavaCCLineCounterParser p = createJavaCCParser(inputFile);
-          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          out.addNewLines("JavaCC", lines);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -27,7 +28,8 @@ public class Main {
         inputFile = new File(filePath);
         try {
           CUPLineCounterParser p = createCUPParser(inputFile);
-          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          out.addNewLines("CUP", lines);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -36,7 +38,8 @@ public class Main {
         inputFile = new File(filePath);
         try {
           JFlexLineCounterParser p = createJFlexParser(inputFile);
-          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          out.addNewLines("JFlex", lines);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -45,7 +48,8 @@ public class Main {
         inputFile = new File(filePath);
         try {
           AntlrLineCounterParser p = createAntlrParser(inputFile);
-          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          out.addNewLines("Antlr", lines);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -56,7 +60,8 @@ public class Main {
         inputFile = new File(filePath);
         try {
           MetaLexerLineCounterParser p = createMetaLexerParser(inputFile);
-          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          out.addNewLines("MetaLexer", lines);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -65,7 +70,8 @@ public class Main {
         inputFile = new File(filePath);
         try {
           CopperLineCounterParser p = createCopperParser(inputFile);
-          outputResult(filePath, p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          out.addNewLines("Copper", lines);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -75,23 +81,18 @@ public class Main {
     }
   }
 
-  public static void outputResult(String filePath, int blankLines, int codeLines,
-                                  int commentLines) {
-    System.out.println("Result for file: " + filePath);
-    System.out.println("Blank lines: " + blankLines);
-    System.out.println("Code lines: " + codeLines);
-    System.out.println("Comment lines: " + commentLines);
-    System.out.println("----------------------------");
-  }
-
   public static void main(String[] args) {
     if (args.length == 0) {
       throw new RuntimeException("No input file.");
     }
 
+    OutputBuilder out = new OutputBuilder();
+
     for (String filePath : args) {
-      countLines(filePath);
+      countLines(out, filePath);
     }
+
+    out.printTable();
 
   }
 
