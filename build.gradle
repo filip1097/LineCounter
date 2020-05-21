@@ -2,7 +2,7 @@ plugins {
     // Apply the java plugin to add support for Java
     id 'java'
 
-    // Antlr plugin for test generation
+    // Antlr plugin for parser / lexer generation
     id 'antlr'
 }
 
@@ -29,7 +29,6 @@ sourceSets {
 test {
     testLogging.events 'passed', 'failed'
     testLogging.exceptionFormat = 'full' // Full error output for test failures.
-    // dependsOn 'cleanTest'
 }
 
 jar {
