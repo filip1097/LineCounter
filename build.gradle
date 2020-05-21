@@ -1,45 +1,51 @@
 plugins {
-    // Apply the java plugin to add support for Java
-    id 'java'
+  // Apply the java plugin to add support for Java
+  id 'java'
 
-    // Antlr plugin for parser / lexer generation
-    id 'antlr'
+  // Antlr plugin for parser / lexer generation
+  id 'antlr'
 }
 
 repositories {
-    // Finds dependencies in Maven Central
-    mavenCentral()
+  // Finds dependencies in Maven Central
+  mavenCentral()
+}
+
+configurations {
+  antlrRuntime
 }
 
 dependencies {
-    // antlr4 parser generator:
-    antlr 'org.antlr:antlr4:4.8-1'
-    implementation 'org.antlr:antlr4-runtime:4.8-1'
+  // antlr4 parser generator:
+  antlr 'org.antlr:antlr4:4.8-1'
+  antlrRuntime 'org.antlr:antlr4-runtime:4.8-1'
 
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+  // Use JUnit test framework
+  testImplementation 'junit:junit:4.12'
 }
 
 sourceSets {
-    main.java.srcDirs = ['src/main/java']
-    test.java.srcDirs = ['src/test/java']
+  main.java.srcDirs = ['src/main/java']
+  test.java.srcDirs = ['src/test/java']
 }
 
 // Configuration for the test running.
 test {
-    testLogging.events 'passed', 'failed'
-    testLogging.exceptionFormat = 'full' // Full error output for test failures.
+  testLogging.events 'passed', 'failed'
+  testLogging.exceptionFormat = 'full' // Full error output for test failures.
 }
 
 jar {
-  manifest.attributes 'Main-Class' : 'LineCounter.Main'
+  manifest.attributes 'Main-Class' : 'line_counter.Main'
 
   // This includes the dependencies in the jar (to allow independent running).
   from{
-    configurations.compile.collect {
+    configurations.antlrRuntime.collect {
       it.isDirectory() ? it : zipTree(it)
     }
   }
+
+  from 'LICENSE.txt'
 }
 
 // Generate antlr files.
@@ -64,14 +70,14 @@ generateGrammarSource {
 clean.dependsOn 'removeGeneratedAntlrCode'
 
 task removeGeneratedAntlrCode(type: Delete) {
-    description 'Removes antlr code'
-    delete fileTree('src/main/antlr').matching {
-        include '*.java'
-        include '*.interp'
-        include '*.tokens'
-    }
-    // A gen folder can be created if there is an error in the antlr task
-    delete file('src/main/gen')
-    delete file('src/main/antlr/gen')
-    delete file('src/test/gen')
+  description 'Removes antlr code'
+  delete fileTree('src/main/antlr').matching {
+    include '*.java'
+    include '*.interp'
+    include '*.tokens'
+  }
+  // A gen folder can be created if there is an error in the antlr task
+  delete file('src/main/gen')
+  delete file('src/main/antlr/gen')
+  delete file('src/test/gen')
 }
