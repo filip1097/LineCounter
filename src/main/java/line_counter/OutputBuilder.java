@@ -8,15 +8,19 @@ import static line_counter.Util.nDigits;
 public class OutputBuilder {
 
   final static String[] COLUMN_TITLES = {"Language", "Code Lines", "Comment Lines", "Blank Lines"};
+  final static String SUM_TITLE = "Sum";
 
   private HashMap<String, LineTotal> linesByLanguage;
   private int[] columnWidth;
+  private LineTotal sum;
 
   public OutputBuilder() {
     linesByLanguage = new HashMap<>();
+    sum = new LineTotal(0, 0, 0);
   }
 
   public void addNewLines(String lang, LineTotal lt) {
+    sum.addLines(lt);
     if (linesByLanguage.containsKey(lang)) {
       linesByLanguage.get(lang).addLines(lt);
     } else {
@@ -26,9 +30,9 @@ public class OutputBuilder {
 
   public void printTable() {
     calcColumnWidth();
+
     printHorizontalLine();
     printRow(COLUMN_TITLES);
-
     printHorizontalLine();
 
     for (Entry<String, LineTotal> e : linesByLanguage.entrySet()) {
@@ -37,6 +41,8 @@ public class OutputBuilder {
       printRow(langName, lines);
     }
 
+    printHorizontalLine();
+    printRow(SUM_TITLE, sum);
     printHorizontalLine();
   }
 
@@ -94,30 +100,24 @@ public class OutputBuilder {
       columnWidth[i] = COLUMN_TITLES[i].length() + 2;
     }
 
-    for (Entry<String, LineTotal> e : linesByLanguage.entrySet()) {
-      int langColWidth = e.getKey().length() + 2;
-      if (langColWidth > columnWidth[0]) {
-        columnWidth[0] = langColWidth;
-      }
-
-      LineTotal lines = e.getValue();
-
-      int codeColWidth = nDigits(lines.getCodeLines()) + 2;
-      if (codeColWidth > columnWidth[1]) {
-        columnWidth[1] = codeColWidth;
-      }
-
-      int commentColWidth = nDigits(lines.getCommentLines()) + 2;
-      if (commentColWidth > columnWidth[2]) {
-        columnWidth[2] = commentColWidth;
-      }
-
-      int blankColWidth = nDigits(lines.getBlankLines()) + 2;
-      if (blankColWidth > columnWidth[3]) {
-        columnWidth[3] = blankColWidth;
-      }
-
+    // Compare with sum row
+    int langColWidth = SUM_TITLE.length() + 2;
+    if (langColWidth > columnWidth[0]) {
+      columnWidth[0] = langColWidth;
     }
+    int codeColWidth = nDigits(sum.getCodeLines()) + 2;
+    if (codeColWidth > columnWidth[1]) {
+      columnWidth[1] = codeColWidth;
+    }
+    int commentColWidth = nDigits(sum.getCommentLines()) + 2;
+    if (commentColWidth > columnWidth[2]) {
+      columnWidth[2] = commentColWidth;
+    }
+    int blankColWidth = nDigits(sum.getBlankLines()) + 2;
+    if (blankColWidth > columnWidth[3]) {
+      columnWidth[3] = blankColWidth;
+    }
+
   }
 
 }
