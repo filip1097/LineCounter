@@ -34,13 +34,17 @@ public class Main {
         countLines(out, child);
       }
     }
-    else if (langByExtension.containsKey(fileExtension(inputFile.getPath()))) {
-      try {
-        JavaCommentParser p = createJavaCommentParser(inputFile);
-        LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-        out.addNewLines(langByExtension.get(fileExtension(inputFile.getPath())), lines);
-      } catch (IOException e) {
-        e.printStackTrace();
+    else  {
+      String fileExt = fileExtension(inputFile.getPath());
+
+      if (langByExtension.containsKey(fileExt)) {
+        try {
+          JavaCommentParser p = createJavaCommentParser(inputFile);
+          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+          out.addNewLines(langByExtension.get(fileExt), lines);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
     }
 
