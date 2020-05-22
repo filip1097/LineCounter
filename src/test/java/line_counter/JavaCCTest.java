@@ -1,12 +1,12 @@
 package line_counter;
 
-import parser.JavaCCLineCounterParser;
+import parser.JavaCommentParser;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static line_counter.Util.createJavaCCParser;
+import static line_counter.Util.createJavaCommentParser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -16,7 +16,7 @@ public class JavaCCTest {
   @Test public void CommentTest() {
     File inputFile = new File(TEST_DIRECTORY, "Comment.jjt");
     try {
-      JavaCCLineCounterParser parser = createJavaCCParser(inputFile);
+      JavaCommentParser parser = createJavaCommentParser(inputFile);
       assertEquals(6, parser.getBlankLines());
       assertEquals(8, parser.getCommentLines());
       assertEquals(16, parser.getCodeLines());

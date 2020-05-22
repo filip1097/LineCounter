@@ -59,6 +59,7 @@ generateGrammarSource {
   arguments += ['-package', 'parser']
   source = fileTree(dir: 'src/main/antlr').matching {
     include '*.g4'
+    exclude 'LineCounterParser.g4'
   }
 
   doLast {
@@ -84,6 +85,11 @@ task removeGeneratedAntlrCode(type: Delete) {
   delete file('src/main/gen')
   delete file('src/main/antlr/gen')
   delete file('src/test/gen')
+}
+
+task removeParserJavaFiles(type: Delete) {
+  description 'Removes the parser java package.'
+  delete file('src/main/java/parser')
 }
 
 task tryLineCounter(type: JavaExec) {

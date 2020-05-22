@@ -10,63 +10,12 @@ import java.io.*;
 
 public class Util {
 
-  public static AntlrLineCounterParser createAntlrParser(File inputFile) throws IOException {
+  public static JavaCommentParser createJavaCommentParser(File inputFile) throws IOException {
     Reader inputReader = new FileReader(inputFile);
     CharStream input = CharStreams.fromReader(inputReader);
-    AntlrLineCounterLexer scanner = new AntlrLineCounterLexer(input);
+    JavaCommentLexer scanner = new JavaCommentLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(scanner);
-    AntlrLineCounterParser parser = new AntlrLineCounterParser(tokens);
-    parser.file();
-    return parser;
-  }
-
-  public static CopperLineCounterParser createCopperParser(File inputFile) throws IOException {
-    Reader inputReader = new FileReader(inputFile);
-    CharStream input = CharStreams.fromReader(inputReader);
-    CopperLineCounterLexer scanner = new CopperLineCounterLexer(input);
-    CommonTokenStream tokens = new CommonTokenStream(scanner);
-    CopperLineCounterParser parser = new CopperLineCounterParser(tokens);
-    parser.file();
-    return parser;
-  }
-
-  public static CUPLineCounterParser createCUPParser(File inputFile) throws IOException {
-    Reader inputReader = new FileReader(inputFile);
-    CharStream input = CharStreams.fromReader(inputReader);
-    CUPLineCounterLexer scanner = new CUPLineCounterLexer(input);
-    CommonTokenStream tokens = new CommonTokenStream(scanner);
-    CUPLineCounterParser parser = new CUPLineCounterParser(tokens);
-    parser.file();
-    return parser;
-  }
-
-  public static MetaLexerLineCounterParser createMetaLexerParser(File inputFile)
-      throws IOException {
-    Reader inputReader = new FileReader(inputFile);
-    CharStream input = CharStreams.fromReader(inputReader);
-    MetaLexerLineCounterLexer scanner = new MetaLexerLineCounterLexer(input);
-    CommonTokenStream tokens = new CommonTokenStream(scanner);
-    MetaLexerLineCounterParser parser = new MetaLexerLineCounterParser(tokens);
-    parser.file();
-    return parser;
-  }
-
-  public static JavaCCLineCounterParser createJavaCCParser(File inputFile) throws IOException {
-    Reader inputReader = new FileReader(inputFile);
-    CharStream input = CharStreams.fromReader(inputReader);
-    JavaCCLineCounterLexer scanner = new JavaCCLineCounterLexer(input);
-    CommonTokenStream tokens = new CommonTokenStream(scanner);
-    JavaCCLineCounterParser parser = new JavaCCLineCounterParser(tokens);
-    parser.file();
-    return parser;
-  }
-
-  public static JFlexLineCounterParser createJFlexParser(File inputFile) throws IOException {
-    Reader inputReader = new FileReader(inputFile);
-    CharStream input = CharStreams.fromReader(inputReader);
-    JFlexLineCounterLexer scanner = new JFlexLineCounterLexer(input);
-    CommonTokenStream tokens = new CommonTokenStream(scanner);
-    JFlexLineCounterParser parser = new JFlexLineCounterParser(tokens);
+    JavaCommentParser parser = new JavaCommentParser(tokens);
     parser.file();
     return parser;
   }

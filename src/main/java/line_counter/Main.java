@@ -4,82 +4,46 @@ import parser.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import static line_counter.Util.*;
 
 public class Main {
+
+  public static HashMap<String, String> langByExtension;
+
+  public static HashMap<String, String> defineExtensions() {
+    HashMap<String, String> langByExtension = new HashMap<>();
+    // Antlr
+    langByExtension.put("g4", "Antlr");
+    // Copper
+    langByExtension.put("cpr", "Copper");
+    // CUP
+    langByExtension.put("cup", "CUP");
+    // JavaCC
+    langByExtension.put("jjt", "JavaCC");
+    langByExtension.put("jj", "JavaCC");
+    // JFlex
+    langByExtension.put("flex", "MetaLexer");
+    return langByExtension;
+  }
 
   public static void countLines(OutputBuilder out, File inputFile) {
     if (inputFile.isDirectory()) {
       for (File child : inputFile.listFiles()) {
         countLines(out, child);
       }
-      return;
+    }
+    else if (langByExtension.containsKey(fileExtension(inputFile.getPath()))) {
+      try {
+        JavaCommentParser p = createJavaCommentParser(inputFile);
+        LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+        out.addNewLines(langByExtension.get(fileExtension(inputFile.getPath())), lines);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
 
-    switch (fileExtension(inputFile.getPath())) {
-      case "jjt": // JavaCC
-        /* fall through */
-      case "jj": // JavaCC
-        try {
-          JavaCCLineCounterParser p = createJavaCCParser(inputFile);
-          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-          out.addNewLines("JavaCC", lines);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        break;
-      case "cup": // CUP
-        try {
-          CUPLineCounterParser p = createCUPParser(inputFile);
-          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-          out.addNewLines("CUP", lines);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        break;
-      case "flex": // JFlex
-        try {
-          JFlexLineCounterParser p = createJFlexParser(inputFile);
-          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-          out.addNewLines("JFlex", lines);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        break;
-      case "g4": // Antlr
-        try {
-          AntlrLineCounterParser p = createAntlrParser(inputFile);
-          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-          out.addNewLines("Antlr", lines);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        break;
-      case "mll": // MetaLexer
-        /* fall through */
-      case "mlc": // MetaLexer
-        try {
-          MetaLexerLineCounterParser p = createMetaLexerParser(inputFile);
-          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-          out.addNewLines("MetaLexer", lines);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        break;
-      case "cpr": // Copper
-        try {
-          CopperLineCounterParser p = createCopperParser(inputFile);
-          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-          out.addNewLines("Copper", lines);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        break;
-      default:
-        System.err.println("LineCounter does not support ."
-            + fileExtension(inputFile.getPath()) + "-files");
-    }
   }
 
   public static void main(String[] args) {
@@ -88,6 +52,7 @@ public class Main {
     }
 
     OutputBuilder out = new OutputBuilder();
+    langByExtension = defineExtensions();
 
     for (String filePath : args) {
       File inputFile = new File(filePath);

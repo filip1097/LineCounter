@@ -1,4 +1,4 @@
-lexer grammar CUPLineCounterLexer;
+lexer grammar JavaCommentLexer;
 
 WS                  : [ \t\r]+ -> skip;
 
@@ -13,7 +13,7 @@ CODE_TEXT           : ~[ \n\t\r]+;
 mode COMMENT_MODE;
 COMMENT_WS          : [ \t\r]+ -> skip;
 
-COMMENT_NEW_LINE    : '\n'            -> type(NEW_LINE);
-COMMENT_END         : '*/'            -> type(COMMENT), popMode;
-COMMENT_TEXT        : ~[ \n\t\r/]+    -> type(COMMENT);
+COMMENT_NEW_LINE    : '\n'      -> type(NEW_LINE);
+COMMENT_END         : '*/'      -> type(COMMENT), popMode;
+COMMENT_TEXT        : ~[ \n\t\r/]+  -> type(COMMENT);
 

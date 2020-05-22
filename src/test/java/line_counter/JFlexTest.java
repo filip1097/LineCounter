@@ -1,12 +1,12 @@
 package line_counter;
 
-import parser.AntlrLineCounterParser;
+import parser.JavaCommentParser;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static line_counter.Util.createAntlrParser;
+import static line_counter.Util.createJavaCommentParser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -16,7 +16,7 @@ public class JFlexTest {
   @Test public void SimpleScannerTest() {
     File inputFile = new File(TEST_DIRECTORY, "SimpleScanner.flex");
     try {
-      AntlrLineCounterParser parser = createAntlrParser(inputFile);
+      JavaCommentParser parser = createJavaCommentParser(inputFile);
       assertEquals(13, parser.getBlankLines());
       assertEquals(8, parser.getCommentLines());
       assertEquals(14, parser.getCodeLines());

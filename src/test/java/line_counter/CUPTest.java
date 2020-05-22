@@ -1,12 +1,12 @@
 package line_counter;
 
-import parser.CUPLineCounterParser;
+import parser.JavaCommentParser;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static line_counter.Util.createCUPParser;
+import static line_counter.Util.createJavaCommentParser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -17,7 +17,7 @@ public class CUPTest {
   @Test public void SimpleCUPTest() {
     File inputFile = new File(TEST_DIRECTORY, "SimpleCUP.cup");
     try {
-      CUPLineCounterParser parser = createCUPParser(inputFile);
+      JavaCommentParser parser = createJavaCommentParser(inputFile);
       assertEquals(6, parser.getBlankLines());
       assertEquals(6, parser.getCommentLines());
       assertEquals(6, parser.getCodeLines());

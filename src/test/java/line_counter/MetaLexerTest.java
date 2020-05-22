@@ -1,12 +1,12 @@
 package line_counter;
 
-import parser.MetaLexerLineCounterParser;
+import parser.JavaCommentParser;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 
-import static line_counter.Util.createMetaLexerParser;
+import static line_counter.Util.createJavaCommentParser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -16,7 +16,7 @@ public class MetaLexerTest {
   @Test public void SimpleTest() {
     File inputFile = new File(TEST_DIRECTORY, "simple.mlc");
     try {
-      MetaLexerLineCounterParser parser = createMetaLexerParser(inputFile);
+      JavaCommentParser parser = createJavaCommentParser(inputFile);
       assertEquals(8, parser.getBlankLines());
       assertEquals(9, parser.getCommentLines());
       assertEquals(8, parser.getCodeLines());
