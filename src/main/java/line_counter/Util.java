@@ -85,8 +85,8 @@ public class Util {
    * @return
    */
   public static int nDigits(int num) {
-    if (num == 0) {
-      return 0;
+    if (Math.abs(num) < 10) {
+      return 1;
     } else {
       return 1 + nDigits(num / 10);
     }
