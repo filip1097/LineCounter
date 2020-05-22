@@ -9,35 +9,55 @@ public class OutputBuilder {
 
   final static String[] COLUMN_TITLES = {"Language", "Code Lines", "Comment Lines", "Blank Lines"};
 
-  private HashMap<String, LineTotal> linePerLanguage;
+  private HashMap<String, LineTotal> linesByLanguage;
   private int[] columnWidth;
 
   public OutputBuilder() {
-    linePerLanguage = new HashMap<>();
+    linesByLanguage = new HashMap<>();
   }
 
   public void addNewLines(String lang, LineTotal lt) {
-    if (linePerLanguage.containsKey(lang)) {
-      linePerLanguage.get(lang).addLines(lt);
+    if (linesByLanguage.containsKey(lang)) {
+      linesByLanguage.get(lang).addLines(lt);
     } else {
-      linePerLanguage.put(lang, lt);
+      linesByLanguage.put(lang, lt);
     }
   }
 
   public void printTable() {
     calcColumnWidth();
+    printHorizontalLine();
+    printRow(COLUMN_TITLES);
 
-    // print titles
+    printHorizontalLine();
+
+    for (Entry<String, LineTotal> e : linesByLanguage.entrySet()) {
+      String langName = e.getKey();
+      LineTotal lines = e.getValue();
+      printRow(langName, lines);
+    }
+
+    printHorizontalLine();
+  }
+
+  private void printRow(String[] strs) {
     System.out.print("|");
-    for (int i = 0; i < COLUMN_TITLES.length; i++) {
-      System.out.print(" ");
-      System.out.print(COLUMN_TITLES[i]);
-      printExtraBlanks(columnWidth[i] - COLUMN_TITLES[i].length() - 1);
-      System.out.print("|");
+    for (int i = 0; i < strs.length; i++) {
+      printElem(strs[i], columnWidth[i]);
     }
     System.out.println();
+  }
 
-    // print horizontal line
+  private void printRow(String str, LineTotal lt) {
+    System.out.print("|");
+    printElem(str, columnWidth[0]);
+    printElem(lt.getCodeLines(), columnWidth[1]);
+    printElem(lt.getCommentLines(), columnWidth[2]);
+    printElem(lt.getBlankLines(), columnWidth[3]);
+    System.out.println();
+  }
+
+  private void printHorizontalLine() {
     System.out.print('+');
     for (int w : columnWidth) {
       for (int i = 0; i < w; i++) {
@@ -46,31 +66,19 @@ public class OutputBuilder {
       System.out.print('+');
     }
     System.out.println();
+  }
 
-    // print lines
-    for (Entry<String, LineTotal> e : linePerLanguage.entrySet()) {
-      String langName = e.getKey();
-      System.out.print("| ");
-      System.out.print(langName);
-      printExtraBlanks(columnWidth[0] - langName.length() - 1);
+  private void printElem(String str, int columnWidth) {
+    System.out.print(" ");
+    System.out.print(str);
+    printExtraBlanks(columnWidth - str.length() - 1);
+    System.out.print("|");
+  }
 
-      LineTotal langLines = e.getValue();
-
-      System.out.print("|");
-      printExtraBlanks(columnWidth[1] - nDigits(langLines.getCodeLines()) - 1);
-      System.out.print(langLines.getCodeLines());
-
-      System.out.print(" |");
-      printExtraBlanks(columnWidth[2] - nDigits(langLines.getCommentLines()) - 1);
-      System.out.print(langLines.getCommentLines());
-
-      System.out.print(" |");
-      printExtraBlanks(columnWidth[3] - nDigits(langLines.getBlankLines()) - 1);
-      System.out.print(langLines.getBlankLines());
-
-      System.out.print(" |");
-      System.out.println();
-    }
+  private void printElem(int lineNum, int columnWidth) {
+    printExtraBlanks(columnWidth - nDigits(lineNum) - 1);
+    System.out.print(lineNum);
+    System.out.print(" |");
   }
 
   private void printExtraBlanks(int n) {
@@ -86,7 +94,7 @@ public class OutputBuilder {
       columnWidth[i] = COLUMN_TITLES[i].length() + 2;
     }
 
-    for (Entry<String, LineTotal> e : linePerLanguage.entrySet()) {
+    for (Entry<String, LineTotal> e : linesByLanguage.entrySet()) {
       int langColWidth = e.getKey().length() + 2;
       if (langColWidth > columnWidth[0]) {
         columnWidth[0] = langColWidth;

@@ -24,7 +24,10 @@ public class Main {
     langByExtension.put("jjt", "JavaCC");
     langByExtension.put("jj", "JavaCC");
     // JFlex
-    langByExtension.put("flex", "MetaLexer");
+    langByExtension.put("flex", "JFlex");
+    // MetaLexer
+    langByExtension.put("mlc", "MetaLexer");
+    langByExtension.put("mll", "MetaLexer");
     return langByExtension;
   }
 
