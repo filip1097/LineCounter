@@ -85,3 +85,12 @@ task removeGeneratedAntlrCode(type: Delete) {
   delete file('src/main/antlr/gen')
   delete file('src/test/gen')
 }
+
+task tryLineCounter(type: JavaExec) {
+  dependsOn 'build'
+  classpath 'build/libs/LineCounter.jar'
+  main 'line_counter.Main'
+
+  def testFilesPath = file('src/test/resources').path
+  args testFilesPath
+}
