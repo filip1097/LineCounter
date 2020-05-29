@@ -14,6 +14,31 @@ The tool currently supports the following languages:
 * JFlex     *(.flex)*
 * MetaLexer *(.mll, .mlc)*
 
+### How to use
+
+Use the tool by:
+
+    java -jar LineCounter.jar <file/dir>
+    
+For example, by using the tool on the test cases:
+
+    java -jar LineCounter.jar src/test/resources
+    
+We get the following result:
+
+    +----------+------------+---------------+-------------+
+    | Language | Code Lines | Comment Lines | Blank Lines |
+    +----------+------------+---------------+-------------+
+    | MetaLexer|          8 |             9 |           8 |
+    | JavaCC   |         16 |             8 |           6 |
+    | JFlex    |         14 |             8 |          13 |
+    | Antlr    |         49 |            13 |          24 |
+    | Copper   |          9 |             5 |           7 |
+    | CUP      |          6 |             6 |           6 |
+    +----------+------------+---------------+-------------+
+    | Sum      |        102 |            49 |          64 |
+    +----------+------------+---------------+-------------+
+
 ### Dependencies
 
 LineCounter uses Antlr4 for scanning and parsing the input file(s). 
