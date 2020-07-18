@@ -47,6 +47,16 @@ public class Util {
     return parser;
   }
 
+  public static XMLCommentParser createXMLCommentParser(File inputFile) throws IOException {
+    Reader inputReader = new FileReader(inputFile);
+    CharStream input = CharStreams.fromReader(inputReader);
+    XMLCommentLexer scanner = new XMLCommentLexer(input);
+    CommonTokenStream tokens = new CommonTokenStream(scanner);
+    XMLCommentParser parser = new XMLCommentParser(tokens);
+    parser.file();
+    return parser;
+  }
+
   public static String fileExtension(String filePath) {
     String[] splitPath = filePath.split("[.]");
     if (splitPath.length != 2) {

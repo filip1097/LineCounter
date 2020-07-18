@@ -1,0 +1,19 @@
+<Main>
+    <!-- SingleLine comment -->
+    <One>
+        <Two>
+            <!-- Multiline comment 1
+            <Two>
+            </Two>
+            -->
+        </Two>
+    </One>
+    <Hello>
+        <There hello="Karl"/>
+        <!-- Multiline comment 2
+        <HowAreYou gj="ghjh"/>
+        -->
+
+    </Hello>
+
+</Main>

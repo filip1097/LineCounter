@@ -13,6 +13,7 @@ The tool currently supports the following languages:
 * JavaCC    *(.jjt, .jj)*
 * JFlex     *(.flex)*
 * MetaLexer *(.mll, .mlc)*
+* XML       *(.xml)*
 
 ### How to use
 
@@ -29,14 +30,15 @@ We get the following result:
     +----------+------------+---------------+-------------+
     | Language | Code Lines | Comment Lines | Blank Lines |
     +----------+------------+---------------+-------------+
-    | MetaLexer|          8 |             9 |           8 |
-    | JavaCC   |         16 |             8 |           6 |
-    | JFlex    |         14 |             8 |          13 |
-    | Antlr    |         49 |            13 |          24 |
-    | Copper   |          9 |             5 |           7 |
-    | CUP      |          6 |             6 |           6 |
+    | MetaLexer|         20 |            14 |          16 |
+    | JavaCC   |         23 |            25 |          12 |
+    | XML      |          9 |             8 |           2 |
+    | JFlex    |         20 |            24 |          26 |
+    | Antlr    |         72 |            52 |          48 |
+    | Copper   |         16 |            12 |          14 |
+    | CUP      |         12 |            12 |          12 |
     +----------+------------+---------------+-------------+
-    | Sum      |        102 |            49 |          64 |
+    | Sum      |        172 |           147 |         130 |
     +----------+------------+---------------+-------------+
 
 ### Dependencies

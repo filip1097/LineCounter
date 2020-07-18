@@ -38,24 +38,38 @@ import static line_counter.Util.*;
 public class Main {
 
   public static HashMap<String, String> langByExtension;
+  public static HashMap<String, String> parserByExtension;
 
-  public static HashMap<String, String> defineExtensions() {
-    HashMap<String, String> langByExtension = new HashMap<>();
+  public static void defineExtensions() {
+    // init hashmaps
+    langByExtension = new HashMap<>();
+    parserByExtension = new HashMap<>();
+
     // Antlr
     langByExtension.put("g4", "Antlr");
+    parserByExtension.put("g4", "Java");
     // Copper
     langByExtension.put("cpr", "Copper");
+    parserByExtension.put("cpr", "Java");
     // CUP
     langByExtension.put("cup", "CUP");
-    // JavaCC
-    langByExtension.put("jjt", "JavaCC");
-    langByExtension.put("jj", "JavaCC");
-    // JFlex
-    langByExtension.put("flex", "JFlex");
+    parserByExtension.put("cup", "Java");
     // MetaLexer
     langByExtension.put("mlc", "MetaLexer");
     langByExtension.put("mll", "MetaLexer");
-    return langByExtension;
+    parserByExtension.put("mlc", "Java");
+    parserByExtension.put("mll", "Java");
+    // JavaCC
+    langByExtension.put("jjt", "JavaCC");
+    langByExtension.put("jj", "JavaCC");
+    parserByExtension.put("jjt", "Java");
+    parserByExtension.put("jj", "Java");
+    // JFlex
+    langByExtension.put("flex", "JFlex");
+    parserByExtension.put("flex", "Java");
+    // XML
+    langByExtension.put("xml", "XML");
+    parserByExtension.put("xml", "XML");
   }
 
   public static void countLines(OutputBuilder out, File inputFile) {
@@ -67,15 +81,27 @@ public class Main {
     else  {
       String fileExt = fileExtension(inputFile.getPath());
 
-      if (langByExtension.containsKey(fileExt)) {
-        try {
-          JavaCommentParser p = createJavaCommentParser(inputFile);
-          LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-          out.addNewLines(langByExtension.get(fileExt), lines);
-        } catch (IOException e) {
-          e.printStackTrace();
+      if (parserByExtension.containsKey(fileExt)) {
+        switch (parserByExtension.get(fileExt)) {
+          case "Java":
+            try {
+              countJavaComments(out, inputFile, fileExt);
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          case "XML":
+            try {
+              countXMLComments(out, inputFile, fileExt);
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+            break;
+          default:
+            throw new RuntimeException("Non declared parser.");
         }
       }
+
+
     }
 
   }
@@ -86,7 +112,7 @@ public class Main {
     }
 
     OutputBuilder out = new OutputBuilder();
-    langByExtension = defineExtensions();
+    defineExtensions();
 
     for (String filePath : args) {
       File inputFile = new File(filePath);
@@ -95,6 +121,20 @@ public class Main {
 
     out.printTable();
 
+  }
+
+  public static void countJavaComments(OutputBuilder out, File file, String fileExt)
+      throws IOException {
+    JavaCommentParser p = createJavaCommentParser(file);
+    LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+    out.addNewLines(langByExtension.get(fileExt), lines);
+  }
+
+  public static void countXMLComments(OutputBuilder out, File file, String fileExt)
+      throws IOException {
+    XMLCommentParser p = createXMLCommentParser(file);
+    LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+    out.addNewLines(langByExtension.get(fileExt), lines);
   }
 
 }

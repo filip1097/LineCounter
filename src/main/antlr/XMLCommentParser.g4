@@ -25,8 +25,8 @@
  *
  */
 
-parser grammar JavaCommentParser;
+parser grammar XMLCommentParser;
 
-options { tokenVocab=JavaCommentLexer; }
+options { tokenVocab=XMLCommentLexer; }
 
 import LineCounterParser;
