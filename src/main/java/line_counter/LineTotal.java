@@ -57,4 +57,8 @@ public class LineTotal {
     return commentLines;
   }
 
+  public int getTotalLines() {
+    return blankLines + codeLines + commentLines;
+  }
+
 }

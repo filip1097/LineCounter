@@ -36,7 +36,8 @@ import static line_counter.Util.nDigits;
 
 public class OutputBuilder {
 
-  final static String[] COLUMN_TITLES = {"Language", "Code Lines", "Comment Lines", "Blank Lines"};
+  final static String[] COLUMN_TITLES = {"Language", "Code Lines", "Comment Lines", "Blank Lines",
+      "Total Lines"};
   final static String SUM_TITLE = "Sum";
 
   private Map<String, LineTotal> linesByLanguage;
@@ -95,6 +96,7 @@ public class OutputBuilder {
     printElem(lt.getCodeLines(), columnWidth[1]);
     printElem(lt.getCommentLines(), columnWidth[2]);
     printElem(lt.getBlankLines(), columnWidth[3]);
+    printElem(lt.getTotalLines(), columnWidth[4]);
     System.out.println();
   }
 
@@ -153,6 +155,10 @@ public class OutputBuilder {
     int blankColWidth = nDigits(sum.getBlankLines()) + 2;
     if (blankColWidth > columnWidth[3]) {
       columnWidth[3] = blankColWidth;
+    }
+    int totalColWidth = nDigits(sum.getTotalLines()) + 2;
+    if (totalColWidth > columnWidth[4]) {
+      columnWidth[4] = blankColWidth;
     }
 
   }
