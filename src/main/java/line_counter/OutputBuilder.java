@@ -135,11 +135,13 @@ public class OutputBuilder {
       columnWidth[i] = COLUMN_TITLES[i].length() + 2;
     }
 
-    // Compare with sum row
-    int langColWidth = SUM_TITLE.length() + 2;
-    if (langColWidth > columnWidth[0]) {
-      columnWidth[0] = langColWidth;
+    // Compare with language names
+    for (String lang : langByLowerCase.keySet()) {
+      if (columnWidth[0] < lang.length() + 2)
+        columnWidth[0] = lang.length() + 2;
     }
+
+    // Compare line columns with sum row. (Sum will always be longer than individual row elems)
     int codeColWidth = nDigits(sum.getCodeLines()) + 2;
     if (codeColWidth > columnWidth[1]) {
       columnWidth[1] = codeColWidth;
