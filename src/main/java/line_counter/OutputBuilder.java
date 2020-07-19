@@ -28,7 +28,9 @@
 package line_counter;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import static line_counter.Util.nDigits;
 
@@ -37,21 +39,26 @@ public class OutputBuilder {
   final static String[] COLUMN_TITLES = {"Language", "Code Lines", "Comment Lines", "Blank Lines"};
   final static String SUM_TITLE = "Sum";
 
-  private HashMap<String, LineTotal> linesByLanguage;
+  private Map<String, LineTotal> linesByLanguage;
+  private Map<String, String> langByLowerCase;
   private int[] columnWidth;
   private LineTotal sum;
 
   public OutputBuilder() {
-    linesByLanguage = new HashMap<>();
+    linesByLanguage = new TreeMap<>();
+    langByLowerCase = new HashMap<>();
     sum = new LineTotal(0, 0, 0);
   }
 
   public void addNewLines(String lang, LineTotal lt) {
+    /* Wants to sort rows alphabetically in lower case */
+    String langInLowerCase = lang.toLowerCase();
     sum.addLines(lt);
-    if (linesByLanguage.containsKey(lang)) {
-      linesByLanguage.get(lang).addLines(lt);
+    if (linesByLanguage.containsKey(langInLowerCase)) {
+      linesByLanguage.get(langInLowerCase).addLines(lt);
     } else {
-      linesByLanguage.put(lang, lt);
+      linesByLanguage.put(langInLowerCase, lt);
+      langByLowerCase.put(langInLowerCase, lang);
     }
   }
 
@@ -63,7 +70,8 @@ public class OutputBuilder {
     printHorizontalLine();
 
     for (Entry<String, LineTotal> e : linesByLanguage.entrySet()) {
-      String langName = e.getKey();
+      String langNameInLowerCase = e.getKey();
+      String langName = langByLowerCase.get(langNameInLowerCase);
       LineTotal lines = e.getValue();
       printRow(langName, lines);
     }
