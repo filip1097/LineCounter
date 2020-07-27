@@ -27,6 +27,7 @@
 
 package line_counter;
 
+import javafx.scene.shape.LineTo;
 import parser.*;
 
 import java.io.File;
@@ -72,40 +73,6 @@ public class Main {
     parserByExtension.put("xml", "XML");
   }
 
-  public static void countLines(OutputBuilder out, File inputFile) {
-    if (inputFile.isDirectory()) {
-      for (File child : inputFile.listFiles()) {
-        countLines(out, child);
-      }
-    }
-    else  {
-      String fileExt = fileExtension(inputFile.getPath());
-
-      if (parserByExtension.containsKey(fileExt)) {
-        switch (parserByExtension.get(fileExt)) {
-          case "Java":
-            try {
-              countJavaComments(out, inputFile, fileExt);
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-          case "XML":
-            try {
-              countXMLComments(out, inputFile, fileExt);
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-            break;
-          default:
-            throw new RuntimeException("Non declared parser.");
-        }
-      }
-
-
-    }
-
-  }
-
   public static void main(String[] args) {
     if (args.length == 0) {
       throw new RuntimeException("No input file.");
@@ -116,25 +83,53 @@ public class Main {
 
     for (String filePath : args) {
       File inputFile = new File(filePath);
-      countLines(out, inputFile);
+      countLinesInFiles(out, inputFile);
     }
 
     out.printTable();
 
   }
 
-  public static void countJavaComments(OutputBuilder out, File file, String fileExt)
-      throws IOException {
-    JavaCommentParser p = createJavaCommentParser(file);
-    LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-    out.addNewLines(langByExtension.get(fileExt), lines);
+  public static void countLinesInFiles(OutputBuilder out, File inputFile) {
+    if (inputFile.isDirectory()) {
+      for (File child : inputFile.listFiles()) {
+        countLinesInFiles(out, child);
+      }
+    }
+    else  {
+      String fileExt = fileExtension(inputFile.getPath());
+
+      if (parserByExtension.containsKey(fileExt)) {
+        try {
+          LineTotal lines = countLines(inputFile, fileExt);
+          out.addNewLines(langByExtension.get(fileExt), lines);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
   }
 
-  public static void countXMLComments(OutputBuilder out, File file, String fileExt)
-      throws IOException {
+  public static LineTotal countLines(File inputFile, String fileExt) throws IOException {
+    switch (parserByExtension.get(fileExt)) {
+      case "Java":
+        return countJavaCommentLines(inputFile);
+      case "XML":
+        return countXMLCommentLines(inputFile);
+      default:
+        throw new RuntimeException("Non declared parser.");
+    }
+  }
+
+  public static LineTotal countJavaCommentLines(File file) throws IOException {
+    JavaCommentParser p = createJavaCommentParser(file);
+    return new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
+  }
+
+  public static LineTotal countXMLCommentLines(File file) throws IOException {
     XMLCommentParser p = createXMLCommentParser(file);
-    LineTotal lines = new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
-    out.addNewLines(langByExtension.get(fileExt), lines);
+    return new LineTotal(p.getBlankLines(), p.getCodeLines(), p.getCommentLines());
   }
 
 }
