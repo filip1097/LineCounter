@@ -47,7 +47,7 @@ public class Main {
     parserByExtension = new HashMap<>();
 
     // Antlr
-    langByExtension.put("g4", "Antlr");
+    langByExtension.put("g4", "ANTLR");
     parserByExtension.put("g4", "Java");
     // Copper
     langByExtension.put("cpr", "Copper");

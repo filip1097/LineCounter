@@ -30,7 +30,7 @@ We get the following result:
     +-----------+------------+---------------+-------------+-------------+
     | Language  | Code Lines | Comment Lines | Blank Lines | Total Lines |
     +-----------+------------+---------------+-------------+-------------+
-    | Antlr     |         49 |            13 |          24 |          86 |
+    | ANTLR     |         49 |            13 |          24 |          86 |
     | Copper    |          9 |             5 |           7 |          21 |
     | CUP       |          6 |             6 |           6 |          18 |
     | JavaCC    |         16 |             8 |           6 |          30 |
