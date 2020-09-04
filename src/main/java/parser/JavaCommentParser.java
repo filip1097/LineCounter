@@ -17,7 +17,7 @@ public class JavaCommentParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		WS=1, NEW_LINE=2, COMMENT=3, CODE_TEXT=4, COMMENT_WS=5, COMMENT_END=6;
+		WS=1, NEW_LINE=2, COMMENT=3, CODE_TEXT=4, COMMENT_WS=5;
 	public static final int
 		RULE_file = 0, RULE_line = 1, RULE_finalLine = 2, RULE_code = 3, RULE_comment = 4;
 	private static String[] makeRuleNames() {
@@ -29,13 +29,12 @@ public class JavaCommentParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, null, null, "'*/'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "WS", "NEW_LINE", "COMMENT", "CODE_TEXT", "COMMENT_WS", "COMMENT_END"
+			null, "WS", "NEW_LINE", "COMMENT", "CODE_TEXT", "COMMENT_WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -385,7 +384,7 @@ public class JavaCommentParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b\61\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7\61\4\2\t\2\4\3"+
 		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\2\3\2\3"+
 		"\3\3\3\3\3\7\3\30\n\3\f\3\16\3\33\13\3\3\3\3\3\3\3\3\4\3\4\3\4\7\4#\n"+
 		"\4\f\4\16\4&\13\4\3\4\3\4\3\4\3\5\3\5\3\5\3\6\3\6\3\6\3\6\2\2\7\2\4\6"+

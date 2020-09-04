@@ -61,4 +61,16 @@ public class AntlrTest {
       fail("IOException when reading file: " + e.getMessage());
     }
   }
+
+  @Test public void LangParserError() {
+    File inputFile = new File(TEST_DIRECTORY, "LangParser.g4");
+    try {
+      JavaCommentParser parser = createJavaCommentParser(inputFile);
+      assertEquals(16, parser.getBlankLines());
+      assertEquals(8, parser.getCommentLines());
+      assertEquals(18, parser.getCodeLines());
+    } catch (IOException e) {
+      fail("IOException when reading file: " + e.getMessage());
+    }
+  }
 }
